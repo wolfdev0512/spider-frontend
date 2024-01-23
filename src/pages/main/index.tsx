@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 import { Home } from "../home";
 
-export const MainPage: React.FC = () => {
+export const Generator: React.FC = () => {
   const router = useNavigate();
   const [currentUser, setCurrentUser] = useState<any>({});
   useEffect(() => {
@@ -66,9 +66,10 @@ export const MainPage: React.FC = () => {
             {logos.map((item, key) => (
               <Styled.LogoItemWrapper
                 key={key}
-                onClick={() =>
-                  handleLogoClick({ logo: item.key, fields: item.fields })
-                }
+                onClick={() => {
+                  console.log(currentUser);
+                  handleLogoClick({ logo: item.key, fields: item.fields });
+                }}
               >
                 <img
                   src={`/assets/logos/${item.key}.png`}

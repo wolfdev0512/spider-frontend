@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { SERVER_URL } from "../../config";
 import jwtDecode from "jwt-decode";
 
-export const SignInPage: React.FC = () => {
+export const SignIn: React.FC = () => {
   const router = useNavigate();
   const [form, setForm] = useState<T.ISignInFormProps>({
     email: "",
@@ -32,7 +32,7 @@ export const SignInPage: React.FC = () => {
         toast.success(res.data.message);
         localStorage.setItem("token", res.data.token);
         const decode: any = jwtDecode(res.data.token);
-        decode.role ? router("/admin") : router("/");
+        decode.role ? router("/admin") : router("/generator");
       } else {
         toast.error(res.data.message);
         // if (res.data.verifyIssue) {

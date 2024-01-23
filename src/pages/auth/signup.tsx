@@ -8,7 +8,7 @@ import axios from "axios";
 import { SERVER_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
 
-export const SignUpPage: React.FC = () => {
+export const SignUp: React.FC = () => {
   const router = useNavigate();
   const [form, setForm] = useState<T.ISignUpFormProps>({
     email: "",
