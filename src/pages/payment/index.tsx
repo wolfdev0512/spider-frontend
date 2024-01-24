@@ -31,7 +31,6 @@ const CheckoutForm: React.FC = () => {
       if (decode.role) {
         router("/admin");
       }
-      console.log(decode);
       setCurrentUser(decode);
     }
   }, []);
@@ -80,7 +79,39 @@ const CheckoutForm: React.FC = () => {
             amount: amount,
           });
           if(response.data.data === "COMPLETED"){
-            alert("success")
+            if(flag){
+              const res = await axios.post(SERVER_URL + "/single", {
+                userId: currentUser.id,
+                company:company,
+                address:address,
+                name:name,
+                email:email,
+                link:link,
+                size:size,
+              });
+              if(res.data.success)
+              {
+                toast.success(res.data.message)
+                router("/generator")
+              }
+              else{
+                toast.error(res.data.message)
+              }
+            } else {
+              const res = await axios.post(SERVER_URL + "/activate", {
+                userId: currentUser.id,
+                amount: amount,
+              });
+              if(res.data.success)
+              {
+                toast.success(res.data.message)
+                localStorage.setItem("token", res.data.token);
+                router("/generator")
+              }
+              else{
+                toast.error(res.data.message)
+              }
+            }
           } 
           else{
             toast.error(response.data.data);

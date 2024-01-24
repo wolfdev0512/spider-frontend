@@ -42,6 +42,19 @@ export const SignIn: React.FC = () => {
     }
   };
 
+  const handleForgot = async () => {
+    if (form.email === "") {
+      toast.error("Please input email!");
+      return;
+    }
+    const res = await axios.post(SERVER_URL + "/auth/forgotPassword", {email: form.email});
+    if(res.data.success) {
+      toast.success(res.data.message);
+    } else {
+      toast.error(res.data.message)
+    }
+  }
+
   return (
     <Styled.AuthWrapper>
       <Comp.AppLogo />
@@ -68,6 +81,11 @@ export const SignIn: React.FC = () => {
           />
           <Comp.Button label="Sign In" onClick={handleSignIn} />
         </Styled.AuthFormWrapper>
+
+        <Styled.Forgot onClick={handleForgot}>
+          Forgot Password?
+        </Styled.Forgot>
+
         <Comp.AuthNavigate
           text="Don't have an account?"
           navLink="/signup"

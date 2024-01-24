@@ -10,6 +10,7 @@ import jwtDecode from "jwt-decode";
 export const Admin: React.FC = () => {
   const router = useNavigate();
   const [userData, setUserData] = useState<any>([]);
+  const [orderData, setOrderData] = useState<any>([]);
   const [edit, setEdit] = useState(-1);
   const [editForm, setEditForm] = useState({ isActive: false, expireDate: "" });
   useEffect(() => {
@@ -27,7 +28,13 @@ export const Admin: React.FC = () => {
 
   const getData = async () => {
     const res = await axios.post(`${SERVER_URL}/admin/getAllUser`);
-    setUserData(res.data.models);
+    console.log(res)
+    setUserData(res.data.user);
+
+    console.log("first")
+    const order = await axios.get(`${SERVER_URL}/single`);
+    console.log(order)
+    setOrderData(order.data.data);
   };
 
   const formatDate = (date: Date) => {
@@ -181,6 +188,44 @@ export const Admin: React.FC = () => {
             </tbody>
           )}
         </Styled.AdminTableWrapper>
+        <h1>Orders</h1>
+        <Styled.AdminTableWrapper>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Company</th>
+              <th>Address</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Link</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          {orderData.length === 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={6} className="empty-row">
+                  No Data
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody>
+              {orderData.map((row: any, index: number) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{row.company}</td>
+                  <td>{row.address}</td>
+                  <td>{row.name}</td>
+                  <td>{row.email}</td>
+                  <td>{row.link}</td>
+                  <td>{row.size}</td>
+                </tr>
+              ))}
+            </tbody>
+          )}
+        </Styled.AdminTableWrapper>
+
       </Styled.AdminWrapper>
     </AppLayout>
   );

@@ -21,6 +21,7 @@ const router = createBrowserRouter([
           { path: "/", element: <Page.Home /> },
           { path: "/signin", element: <Page.SignIn /> },
           { path: "/signup", element: <Page.SignUp /> },
+          { path: "/reset-password", element: <Page.Reset />}
         ],
       },
       {
