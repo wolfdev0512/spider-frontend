@@ -16,7 +16,9 @@ const CheckoutForm: React.FC = () => {
   const router = useNavigate();
 
   const [count, setCount] = useState(1);
-  const { flag } = useSelector((state: any) => state.single);
+  const { flag, company, address, name, email, link, size } = useSelector(
+    (state: any) => state.single
+  );
 
   const [currentUser, setCurrentUser] = useState<any>({});
 
@@ -29,6 +31,7 @@ const CheckoutForm: React.FC = () => {
       if (decode.role) {
         router("/admin");
       }
+      console.log(decode);
       setCurrentUser(decode);
     }
   }, []);
@@ -74,11 +77,11 @@ const CheckoutForm: React.FC = () => {
           let amount = flag ? 8 : count * 50;
           const response = await axios.post(SERVER_URL + "/payment", {
             sourceId: token.token,
-            amount:amount
+            amount: amount,
           });
 
           alert(JSON.stringify(response, null, 2));
-          console.log(JSON.stringify(response, null, 2))
+          console.log(JSON.stringify(response, null, 2));
         }}
       >
         <CreditCard />
