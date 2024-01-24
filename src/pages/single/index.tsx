@@ -14,12 +14,68 @@ import {
   InputContainer,
   InputLabel,
   ItemContainer,
+  SubmitButton,
 } from "./styled";
 
 import { logos } from "../main/data";
+import { toast } from "react-toastify";
+
+import { useDispatch } from 'react-redux';
+import { singleActions } from '../../redux/single';
+import { useNavigate } from "react-router-dom";
 
 export const Single: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [logo, setLogo] = useState("Apple");
+
+  const [address, setAddress] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [link, setLink] = useState("");
+  const [size, setSize] = useState("");
+
+  const handleSubmit = () => {
+    if(address === "")
+    {
+      toast.error("Please input address");
+      return;
+    }
+    if(name === "")
+    {
+      toast.error("Please input name");
+      return;
+    }
+    if(email === "")
+    {
+      toast.error("Please input email");
+      return;
+    }
+    if(link === "")
+    {
+      toast.error("Please input link");
+      return;
+    }
+    if(size === "")
+    {
+      toast.error("Please input size");
+      return;
+    }
+
+    dispatch(singleActions.setSingle({
+      flag: true,
+      company : logo,
+      address : address,
+      name: name,
+      email: email,
+      link: link,
+      size: size    
+    }));
+
+    navigate("/payment");    
+  }
+
   return (
     <AppLayout>
       <Layout>
@@ -47,33 +103,35 @@ export const Single: React.FC = () => {
           <ItemContainer>
             <InputLabel>Address: </InputLabel>
             <InputContainer>
-              <Input placeholder="Address" />
+              <Input placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
             </InputContainer>
           </ItemContainer>
           <ItemContainer>
             <InputLabel>Name:</InputLabel>
             <InputContainer>
-              <Input placeholder="Name" />
+              <Input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
             </InputContainer>
           </ItemContainer>
           <ItemContainer>
             <InputLabel>Email</InputLabel>
             <InputContainer>
-              <Input placeholder="Email" />
+              <Input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             </InputContainer>
           </ItemContainer>
           <ItemContainer>
             <InputLabel>Link</InputLabel>
             <InputContainer>
-              <Input placeholder="Link" />
+              <Input placeholder="Link" value={link} onChange={(e) => setLink(e.target.value)}/>
             </InputContainer>
           </ItemContainer>
           <ItemContainer>
             <InputLabel>Size</InputLabel>
             <InputContainer>
-              <Input placeholder="Size" />
+              <Input placeholder="Size" value={size} onChange={(e) => setSize(e.target.value)} />
             </InputContainer>
           </ItemContainer>
+
+          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </FormContainer>
       </Layout>
     </AppLayout>

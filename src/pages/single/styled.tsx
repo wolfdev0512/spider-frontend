@@ -24,7 +24,7 @@ export const FormContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 `;
 export const Image = styled.img`
@@ -109,3 +109,16 @@ export const ItemContainer = styled.div`
     margin-bottom: 16px;
   }
 `;
+
+export const SubmitButton = styled.div`
+  width: 100%;
+  height: 50px;
+  background: #5538c9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 10px;
+`

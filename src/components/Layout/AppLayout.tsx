@@ -5,6 +5,9 @@ import { lightTheme, darkTheme, GlobalStyles } from "../../theme";
 
 import * as Comp from "../../components";
 
+import { Provider } from "react-redux";
+import { store } from "../../redux/store";
+
 const AppLayout: React.FC = () => {
   const [theme, setTheme] = useState("light");
 
@@ -24,10 +27,12 @@ const AppLayout: React.FC = () => {
 
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <GlobalStyles />
-      <Outlet />
-      <Comp.Toast theme={isDarkTheme ? "dark" : "light"} />
-      <Comp.DarkModeSwitch setTheme={setTheme} theme={theme} />
+      <Provider store={store}>
+        <GlobalStyles />
+        <Outlet />
+        <Comp.Toast theme={isDarkTheme ? "dark" : "light"} />
+        <Comp.DarkModeSwitch setTheme={setTheme} theme={theme} />
+      </Provider>
     </ThemeProvider>
   );
 };

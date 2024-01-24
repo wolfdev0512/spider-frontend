@@ -30,7 +30,7 @@ const router = createBrowserRouter([
           { path: "/admin", element: <Page.Admin /> },
           { path: "/generator", element: <Page.Generator /> },
           { path: "/singlereceipt", element: <Page.Single /> },
-          { path: "/activate", element: <Page.Activate /> },
+          { path: "/payment", element: <Page.Payment /> },
         ],
       },
       { path: "404", element: <Page.Lost /> },

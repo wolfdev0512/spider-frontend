@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import * as Styled from "./main.styles";
 import * as Comp from "../../components";
-import { AppLayout } from "../../layouts";
 import type * as T from "../../types/components";
+
 import { logos } from "./data";
+
+import { AppLayout } from "../../layouts";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 import { Home } from "../home";
+import jwtDecode from "jwt-decode";
 
 export const Generator: React.FC = () => {
   const router = useNavigate();
+
   const [currentUser, setCurrentUser] = useState<any>({});
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(currentUser);
     if (!token) {
       // router("/signin");
     } else {
@@ -41,6 +44,7 @@ export const Generator: React.FC = () => {
     logo: "",
     fields: [],
   });
+  
   const [alert, setAlert] = useState<T.IAlertProps>({
     type: "warning",
     message: "Please Log in.",

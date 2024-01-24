@@ -5,11 +5,10 @@ import { Navigate, Outlet } from "react-router-dom";
 
 //---------------------------------------------------------------
 const PrivateRoute = () => {
-    console.log("Private")
   const token = localStorage.getItem("token");
 
   if (!token) {
-    return <Navigate to="/" />;
+    return <Navigate to="/signin" />;
   }
 
   return <Outlet />;

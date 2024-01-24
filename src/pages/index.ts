@@ -6,8 +6,7 @@ export * from "./home"
 export * from "./auth";
 export * from "./main";
 export * from "./single";
-export * from "./lost";
 export * from "./admin";
-export * from "./activate";
-
+export * from "./payment";
+export * from "./lost"
 

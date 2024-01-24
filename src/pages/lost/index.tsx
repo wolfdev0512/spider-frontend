@@ -1,22 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import { CreditCard, PaymentForm } from 'react-square-web-payments-sdk';
-import axios from 'axios';
-import { SERVER_URL } from '../../config';
+import { Layout, Image, Text, Button, } from "./styled";
 
 export const Lost = () => {
   return (
-    <PaymentForm
-      applicationId="sandbox-sq0idb-nP6eTBYzaPexcBtq9o9l8Q"
-      locationId="LEWP2HC84SHQT"
-      cardTokenizeResponseReceived={async( token, buyer) =>{
-        const response = await axios.post(SERVER_URL+ "/payment", {
-          sourceId:token.token
-        })
-        alert(JSON.stringify(response, null, 2))
-      }}
-    >
-      <CreditCard />
-    </PaymentForm>
-  )
-}
+    <Layout>
+      <Image src="assets/logo.png" alt="No Logo" />
+      <Text>404: Page not found</Text>
+      <Button to="/">Go To Home</Button>
+    </Layout>
+  );
+};
