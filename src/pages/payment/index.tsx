@@ -79,9 +79,12 @@ const CheckoutForm: React.FC = () => {
             sourceId: token.token,
             amount: amount,
           });
-
-          alert(JSON.stringify(response, null, 2));
-          console.log(JSON.stringify(response, null, 2));
+          if(response.data.data === "COMPLETED"){
+            alert("success")
+          } 
+          else{
+            toast.error(response.data.data);
+          }
         }}
       >
         <CreditCard />
