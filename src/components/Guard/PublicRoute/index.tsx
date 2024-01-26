@@ -10,9 +10,10 @@ const PublicRoute = () => {
   console.log(location);
 
   if (token) {
-    if (location.pathname !== "/singlereceipt") {
-      return <Navigate to="/generator" />;
+    if (location.pathname === "/singlereceipt" && location.pathname === "/singlereceipt" ) {
+      return <Outlet />;
     }
+    return <Navigate to="/generator" />;
   }
 
   return <Outlet />;
