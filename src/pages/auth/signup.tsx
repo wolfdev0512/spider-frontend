@@ -35,7 +35,6 @@ export const SignUp: React.FC = () => {
       if (res.data.success) {
         toast.success(res.data.message);
         router(`/signin`);
-        // router(`/sendcode?email=${form.email}`);
       } else {
         toast.error(res.data.message);
       }

@@ -21,7 +21,9 @@ const router = createBrowserRouter([
           { path: "/", element: <Page.Home /> },
           { path: "/signin", element: <Page.SignIn /> },
           { path: "/signup", element: <Page.SignUp /> },
-          { path: "/reset-password", element: <Page.Reset />}
+          { path: "/reset-password", element: <Page.Reset />},
+          { path: "/singlereceipt", element: <Page.Single /> },
+          { path: "/payment", element: <Page.Payment /> },       
         ],
       },
       {
@@ -30,8 +32,6 @@ const router = createBrowserRouter([
         children: [
           { path: "/admin", element: <Page.Admin /> },
           { path: "/generator", element: <Page.Generator /> },
-          { path: "/singlereceipt", element: <Page.Single /> },
-          { path: "/payment", element: <Page.Payment /> },
         ],
       },
       { path: "404", element: <Page.Lost /> },

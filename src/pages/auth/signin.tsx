@@ -35,9 +35,6 @@ export const SignIn: React.FC = () => {
         decode.role ? router("/admin") : router("/generator");
       } else {
         toast.error(res.data.message);
-        // if (res.data.verifyIssue) {
-        //   router(`/sendcode?email=${form.email}`);
-        // }
       }
     }
   };

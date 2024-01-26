@@ -42,3 +42,14 @@ export const LogButton = styled.div`
     }
   }
 `;
+
+export const HomeHeaderButton = styled.div`
+  display: flex;
+  align-items: center;
+
+  .log-button {
+    width: auto;
+    margin-left: 15px;
+    padding: 10px 20px;
+  }
+`;

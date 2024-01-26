@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const HomeWrapper = styled.div`
-  height: 100vh;
   max-width: 1300px;
+  height: 100vh;
   width: 95%;
   margin: auto;
   display: flex;
@@ -17,9 +17,13 @@ export const HomeHeaderWrapper = styled.div`
 `;
 
 export const HomeHeaderButton = styled.div`
+  display: flex;
+  align-items: center;
+
   .log-button {
-    width: 100px;
-    margin-left: 20px;
+    width: auto;
+    margin-left: 15px;
+    padding: 10px 20px;
   }
 `;
 

@@ -16,17 +16,16 @@ const CheckoutForm: React.FC = () => {
   const router = useNavigate();
 
   const [count, setCount] = useState(1);
+  
   const { flag, company, address, name, email, link, size } = useSelector(
     (state: any) => state.single
   );
 
-  const [currentUser, setCurrentUser] = useState<any>({});
+  const [currentUser, setCurrentUser] = useState<any>(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      router("/signin");
-    } else {
+    if (token) {
       const decode: any = jwtDecode(token);
       if (decode.role) {
         router("/admin");

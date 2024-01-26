@@ -19,6 +19,11 @@ export const Home: React.FC = () => {
         <Comp.AppLogo />
         <Styled.HomeHeaderButton>
           <Comp.Button
+            label="Single Receipt"
+            onClick={() => router("/singlereceipt")}
+            className="log-button"
+          />
+          <Comp.Button
             label="LogIn"
             onClick={() => router("/signin")}
             className="log-button"
@@ -79,16 +84,16 @@ export const Home: React.FC = () => {
           <div>
             <h3>Quick Links</h3>
             <p>
-              <a href="https://t.me/+ivUhAc83iO8zMjkx" target="_blank">
+              <a href="https://t.me/+ivUhAc83iO8zMjkx" target="_blank" rel="noreferrer">
                 Testimonials
               </a>
               <a
                 href="https://spyderreselling.com/pages/contact-us"
-                target="_blank"
+                target="_blank" rel="noreferrer"
               >
                 Connect with us
               </a>
-              <a href="https://spyderreselling.com/pages/t-o-s" target="_blank">
+              <a href="https://spyderreselling.com/pages/t-o-s" target="_blank" rel="noreferrer">
                 T.O.S
               </a>
             </p>
