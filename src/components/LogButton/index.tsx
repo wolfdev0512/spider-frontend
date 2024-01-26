@@ -36,7 +36,10 @@ export const LogButton: React.FC = () => {
           {!currentUser.role && !currentUser.isActive && (
             <>
               <Styled.LogButton
-                onClick={() => navigate("/singlereceipt")}
+                onClick={() => {
+                  console.log("Hello");
+                  navigate("/singlereceipt");
+                }}
                 className="changePage"
               >
                 <span>Single Receipt</span>

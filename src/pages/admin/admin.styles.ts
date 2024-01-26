@@ -11,6 +11,7 @@ export const AdminWrapper = styled.div`
 
 export const AdminTableWrapper = styled.table`
   width: 100%;
+  margin-bottom: 30px;
   &,
   tr,
   td,
