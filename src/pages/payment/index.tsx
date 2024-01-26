@@ -80,7 +80,6 @@ const CheckoutForm: React.FC = () => {
           if(response.data.data === "COMPLETED"){
             if(flag){
               const res = await axios.post(SERVER_URL + "/single", {
-                userId: currentUser.id,
                 company:company,
                 address:address,
                 name:name,
