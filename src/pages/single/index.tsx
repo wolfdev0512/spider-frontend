@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { AppLayout } from "../../layouts";
 
@@ -35,6 +35,16 @@ export const Single: React.FC = () => {
   const [email, setEmail] = useState("");
   const [link, setLink] = useState("");
   const [size, setSize] = useState("");
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    setDate(formattedDate);
+  }, []);
 
   const handleSubmit = () => {
     if(address === "")
@@ -60,6 +70,11 @@ export const Single: React.FC = () => {
     if(size === "")
     {
       toast.error("Please input size");
+      return;
+    }
+    if(date === "")
+    {
+      toast.error("Please input Date");
       return;
     }
 
@@ -130,7 +145,12 @@ export const Single: React.FC = () => {
               <Input placeholder="Size" value={size} onChange={(e) => setSize(e.target.value)} />
             </InputContainer>
           </ItemContainer>
-
+          <ItemContainer>
+            <InputLabel>Purchase Date</InputLabel>
+            <InputContainer>
+              <Input placeholder="Size" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </InputContainer>
+          </ItemContainer>
           <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </FormContainer>
       </Layout>

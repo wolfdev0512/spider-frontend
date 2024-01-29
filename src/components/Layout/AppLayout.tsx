@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+
+import { Outlet } from "react-router-dom";
+
 import { lightTheme, darkTheme, GlobalStyles } from "../../theme";
 
 import * as Comp from "../../components";

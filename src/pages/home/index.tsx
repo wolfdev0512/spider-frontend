@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./home.styles";
 import * as Comp from "../../components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaEnvelope,
   FaHandPointRight,
@@ -9,6 +9,7 @@ import {
   FaTrophy,
   FaTruck,
 } from "react-icons/fa6";
+
 import { AppFooter } from "../../layouts/appLayout/AppFooter";
 
 export const Home: React.FC = () => {
@@ -18,23 +19,35 @@ export const Home: React.FC = () => {
       <Styled.HomeHeaderWrapper>
         <Comp.AppLogo />
         <Styled.HomeHeaderButton>
-          <Comp.Button
-            label="Single Receipt"
-            onClick={() => router("/singlereceipt")}
-            className="log-button"
-          />
-          <Comp.Button
-            label="LogIn"
-            onClick={() => router("/signin")}
-            className="log-button"
-          />
-          <Comp.Button
-            label="Register"
-            onClick={() => router("/signup")}
-            className="log-button"
-          />
+          <Styled.LinkBox>
+            <Styled.LinkItem to="/singlereceipt">
+              Single Receipt
+            </Styled.LinkItem>
+            <Styled.LinkItem
+              to="https://t.me/+ivUhAc83iO8zMjkx"
+              target="_blank"
+            >
+              Testimonials
+            </Styled.LinkItem>
+            <Styled.LinkItem to="/contact">Connect us</Styled.LinkItem>
+            <Styled.LinkItem to="/t-o-s">T.O.S</Styled.LinkItem>
+          </Styled.LinkBox>
+
+          <Styled.AuthButtonBox>
+            <Comp.Button
+              label="Login"
+              onClick={() => router("/signin")}
+              className="log-button"
+            />
+            <Comp.Button
+              label="Register"
+              onClick={() => router("/signup")}
+              className="log-button"
+            />
+          </Styled.AuthButtonBox>
         </Styled.HomeHeaderButton>
       </Styled.HomeHeaderWrapper>
+
       <Styled.HomeBodyWrapper>
         <Styled.HomeVideoWrapper>
           <video src="/assets/2023_GENERATOR.mp4" loop autoPlay muted></video>
@@ -84,18 +97,19 @@ export const Home: React.FC = () => {
           <div>
             <h3>Quick Links</h3>
             <p>
-              <a href="https://t.me/+ivUhAc83iO8zMjkx" target="_blank" rel="noreferrer">
+              <a
+                href="https://t.me/+ivUhAc83iO8zMjkx"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Testimonials
               </a>
-              <a
-                href="https://spyderreselling.com/pages/contact-us"
-                target="_blank" rel="noreferrer"
-              >
+              <Link to="/contact" target="_blank">
                 Connect with us
-              </a>
-              <a href="https://spyderreselling.com/pages/t-o-s" target="_blank" rel="noreferrer">
+              </Link>
+              <Link to="/t-o-s" target="_blank">
                 T.O.S
-              </a>
+              </Link>
             </p>
           </div>
           <div>

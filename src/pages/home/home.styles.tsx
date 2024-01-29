@@ -1,19 +1,26 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HomeWrapper = styled.div`
-  max-width: 1300px;
-  height: 100vh;
   width: 95%;
-  margin: auto;
+  max-width: 1300px;
+
   display: flex;
   flex-direction: column;
+
+  margin: auto;
 `;
 
 export const HomeHeaderWrapper = styled.div`
   display: flex;
-  padding: 26px 0;
   justify-content: space-between;
   align-items: center;
+
+  padding: 26px 0;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 export const HomeHeaderButton = styled.div`
@@ -24,6 +31,19 @@ export const HomeHeaderButton = styled.div`
     width: auto;
     margin-left: 15px;
     padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 425px) {
+    .log-button {
+      font-size: 14px;
+      height: 30px;
+    }
   }
 `;
 
@@ -53,6 +73,17 @@ export const HomeSubscribeWrapper = styled.div`
   }
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
+    h3 {
+      font-size: 25px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    p {
+      font-size: 16px;
+      a {
+        font-size: 16px;
+      }
+    }
   }
 `;
 
@@ -126,4 +157,34 @@ export const HomeVideoWrapper = styled.div`
   video {
     width: 100%;
   }
+`;
+
+export const LinkBox = styled.div`
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 16px;
+  }
+`;
+
+export const LinkItem = styled(Link)`
+  color: #6548d9;
+  font-size: 16px;
+  font-weight: 700;
+
+  &:first-child {
+    color: #ff2f35;
+  }
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+
+  text-decoration: underline;
+
+  @media screen and (max-width: 425px) {
+    font-size: 12px;
+  }
+`;
+
+export const AuthButtonBox = styled.div`
+  display: flex;
 `;

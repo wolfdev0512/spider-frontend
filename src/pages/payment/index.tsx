@@ -130,7 +130,7 @@ export const Payment: React.FC = () => {
   return (
     <AppLayout>
       <Styled.ActivateWrapper>
-        <span
+        <div
           onClick={() => {
             dispatch(
               singleActions.setSingle({
@@ -147,7 +147,7 @@ export const Payment: React.FC = () => {
           }}
         >
           <FaArrowLeftLong /> Back
-        </span>
+        </div>
         <div>
           <CheckoutForm />
         </div>

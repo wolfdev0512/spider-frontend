@@ -2,11 +2,18 @@ import { styled } from "styled-components";
 
 export const Layout = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  padding: 20px;
+
+  @media screen and (max-width: 768px){
+    flex-direction: column;
+    height: fit-content;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -16,6 +23,11 @@ export const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 768px){
+    width: 90%;
+    height: 150px;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -24,8 +36,14 @@ export const FormContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
+  overflow: auto;
+
+  @media screen and (max-width: 768px){
+    width: 90%;
+    height: fit-content;
+    overflow: visible;
+  }
 `;
 export const Image = styled.img`
   width: 100px;
@@ -100,19 +118,20 @@ export const InputLabel = styled.div`
 
 export const ItemContainer = styled.div`
   width: 100%;
+    height: auto;
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   &:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 `;
 
 export const SubmitButton = styled.div`
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   background: #5538c9;
   display: flex;
   align-items: center;

@@ -13,13 +13,12 @@ export const Layout = styled.div`
 `;
 
 export const Image = styled.img`
-    width: 170px;
+    width: 150px;
 `;
 
 export const Text = styled.div`
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
-
 `;
 
 export const Button = styled(Link)`
@@ -35,8 +34,8 @@ export const Button = styled(Link)`
 
     background: #6548d9;
     
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
 
-    margin-top: 16px;
+    margin-top: 20px;
 `;

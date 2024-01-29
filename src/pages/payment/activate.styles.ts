@@ -3,20 +3,15 @@ import { styled } from "styled-components";
 export const ActivateWrapper = styled.div`
   width: 100%;
   height: 100%;
+
   display: flex;
+  flex-direction: column;
   position: relative;
-  & > span {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: inline-flex;
-    align-items: center;
-    svg {
-      margin-right: 8px;
-      cursor: pointer;
-    }
+  & > :first-child {
+    cursor: pointer;
+    padding: 20px;
   }
-  & > div {
+  & > :not(:first-child) {
     padding: 24px;
     width: 95%;
     max-width: 502px;

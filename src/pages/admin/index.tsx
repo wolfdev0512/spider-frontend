@@ -7,12 +7,20 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
+import { Pagination } from "antd";
+
 export const Admin: React.FC = () => {
   const router = useNavigate();
+
   const [userData, setUserData] = useState<any>([]);
   const [orderData, setOrderData] = useState<any>([]);
+  
   const [edit, setEdit] = useState(-1);
   const [editForm, setEditForm] = useState({ isActive: false, expireDate: "" });
+
+  const [page1, setPage1] = React.useState(1);
+  const [page2, setPage2] = React.useState(1);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -26,14 +34,15 @@ export const Admin: React.FC = () => {
     getData();
   }, []);
 
+
   const getData = async () => {
     const res = await axios.post(`${SERVER_URL}/admin/getAllUser`);
-    console.log(res)
+    console.log(res);
     setUserData(res.data.user);
 
-    console.log("first")
+    console.log("first");
     const order = await axios.get(`${SERVER_URL}/single`);
-    console.log(order)
+    console.log(order);
     setOrderData(order.data.data);
   };
 
@@ -88,6 +97,7 @@ export const Admin: React.FC = () => {
     <AppLayout>
       <Styled.AdminWrapper>
         <h1>Users</h1>
+
         <Styled.AdminTableWrapper>
           <thead>
             <tr>
@@ -109,9 +119,9 @@ export const Admin: React.FC = () => {
             </tbody>
           ) : (
             <tbody>
-              {userData.map((row: any, index: number) => (
+              {userData.slice((page1-1)*10, page1*10).map((row: any, index: number) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td>{(page1-1) * 10 + index + 1}</td>
                   <td>{row.email}</td>
                   <td>
                     {edit > -1 && edit === index ? (
@@ -188,7 +198,15 @@ export const Admin: React.FC = () => {
             </tbody>
           )}
         </Styled.AdminTableWrapper>
-        <h1>Orders</h1>
+        <Pagination
+          defaultCurrent={1}
+          current={page1}
+          total={userData.length}
+          onChange={(value) => setPage1(value)}
+          pageSize={10}
+          showSizeChanger={false}
+        />
+        <h1 style={{marginTop: "20px"}}>Orders</h1>
         <Styled.AdminTableWrapper>
           <thead>
             <tr>
@@ -204,14 +222,14 @@ export const Admin: React.FC = () => {
           {orderData.length === 0 ? (
             <tbody>
               <tr>
-                <td colSpan={6} className="empty-row">
+                <td colSpan={7} className="empty-row">
                   No Data
                 </td>
               </tr>
             </tbody>
           ) : (
             <tbody>
-              {orderData.map((row: any, index: number) => (
+              {orderData.slice((page2-1)*10, page2*10-1).map((row: any, index: number) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{row.company}</td>
@@ -225,7 +243,14 @@ export const Admin: React.FC = () => {
             </tbody>
           )}
         </Styled.AdminTableWrapper>
-
+        <Pagination
+          defaultCurrent={1}
+          current={page2}
+          total={orderData.length}
+          onChange={(value) => setPage2(value)}
+          pageSize={10}
+          showSizeChanger={false}
+        />
       </Styled.AdminWrapper>
     </AppLayout>
   );
