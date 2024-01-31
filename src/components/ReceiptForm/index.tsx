@@ -36,6 +36,7 @@ export const ReceiptForm: React.FC<IReceiptFormProps> = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log(form)
     if (!loading) {
       const validArr = fields.map((item) => {
         return new Object(form).hasOwnProperty(item.split(" ")[0])

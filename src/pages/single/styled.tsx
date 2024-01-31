@@ -46,8 +46,8 @@ export const FormContainer = styled.div`
   }
 `;
 export const Image = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 250px;
+  height: 250px;
   cursor: pointer;
   filter: invert(${({ theme }) => theme.image});
 `;

@@ -72,6 +72,10 @@ export const Generator: React.FC = () => {
                 key={key}
                 onClick={() => {
                   console.log(currentUser);
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                  });
                   handleLogoClick({ logo: item.key, fields: item.fields });
                 }}
               >
