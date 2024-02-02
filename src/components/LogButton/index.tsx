@@ -37,7 +37,6 @@ export const LogButton: React.FC = () => {
             <>
               <Styled.LogButton
                 onClick={() => {
-                  console.log("Hello");
                   navigate("/singlereceipt");
                 }}
                 className="changePage"

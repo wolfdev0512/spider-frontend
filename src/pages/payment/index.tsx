@@ -62,7 +62,8 @@ const CheckoutForm: React.FC = () => {
             </div>
             <div>
               <h3>Price</h3>
-              <h2>${50 * count}.00</h2>
+              {/* <h2>${50 * count}.00</h2> */}
+              <h2>1</h2>
             </div>
           </Styled.PaySettingWrapper>
           <Styled.Divider />
