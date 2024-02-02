@@ -14,9 +14,10 @@ import { SERVER_URL } from "../../config";
 
 const CheckoutForm: React.FC = () => {
   const router = useNavigate();
+  const dispatch = useDispatch();
 
   const [count, setCount] = useState(1);
-  
+
   const { flag, company, address, name, email, link, size } = useSelector(
     (state: any) => state.single
   );
@@ -36,7 +37,7 @@ const CheckoutForm: React.FC = () => {
 
   return (
     <form>
-      {!flag && (
+      {!flag ? (
         <>
           <Styled.PaySettingWrapper>
             <div>
@@ -63,37 +64,57 @@ const CheckoutForm: React.FC = () => {
             <div>
               <h3>Price</h3>
               {/* <h2>${50 * count}.00</h2> */}
-              <h2>1</h2>
+              <h2>${1 * count}.00</h2>
             </div>
           </Styled.PaySettingWrapper>
           <Styled.Divider />
         </>
-      )}
+      ) : (<>
+        <Styled.PaySettingWrapper>
+          <div>
+            <h3>Price</h3>
+            <h2>$1</h2>
+          </div>
+        </Styled.PaySettingWrapper>
+        <Styled.Divider />
+      </>)}
       <PaymentForm
-        applicationId="sq0idp-cy8kSbhWO1avSBHRgeK0IA"
-        locationId="LHBS7S12SPH5C"
+        applicationId="sandbox-sq0idb-nP6eTBYzaPexcBtq9o9l8Q"
+        locationId="LEWP2HC84SHQT"
         cardTokenizeResponseReceived={async (token, buyer) => {
-          let amount = flag ? 8 : count * 50;
+          // let amount = flag ? 8 : count * 50;
+          let amount = flag ? 1 : count * 1;
           const response = await axios.post(SERVER_URL + "/payment", {
             sourceId: token.token,
             amount: amount,
           });
-          if(response.data.data === "COMPLETED"){
-            if(flag){
+          console.log(response)
+          if (response.data.data === "COMPLETED") {
+            if (flag) {
               const res = await axios.post(SERVER_URL + "/single", {
-                company:company,
-                address:address,
-                name:name,
-                email:email,
-                link:link,
-                size:size,
+                company: company,
+                address: address,
+                name: name,
+                email: email,
+                link: link,
+                size: size,
               });
-              if(res.data.success)
-              {
+              if (res.data.success) {
                 toast.success(res.data.message)
-                router("/generator")
+                dispatch(
+                  singleActions.setSingle({
+                    flag: false,
+                    company: "",
+                    address: "",
+                    name: "",
+                    email: "",
+                    link: "",
+                    size: "",
+                  })
+                );
+                router("/singlereceipt")
               }
-              else{
+              else {
                 toast.error(res.data.message)
               }
             } else {
@@ -101,18 +122,17 @@ const CheckoutForm: React.FC = () => {
                 userId: currentUser.id,
                 amount: amount,
               });
-              if(res.data.success)
-              {
+              if (res.data.success) {
                 toast.success(res.data.message)
                 localStorage.setItem("token", res.data.token);
                 router("/generator")
               }
-              else{
+              else {
                 toast.error(res.data.message)
               }
             }
-          } 
-          else{
+          }
+          else {
             toast.error(response.data.data);
           }
         }}
