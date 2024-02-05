@@ -79,8 +79,8 @@ const CheckoutForm: React.FC = () => {
         <Styled.Divider />
       </>)}
       <PaymentForm
-        applicationId="sandbox-sq0idb-nP6eTBYzaPexcBtq9o9l8Q"
-        locationId="LEWP2HC84SHQT"
+        applicationId="sq0idp-cy8kSbhWO1avSBHRgeK0IA"
+        locationId="LHBS7S12SPH5C"
         cardTokenizeResponseReceived={async (token, buyer) => {
           // let amount = flag ? 8 : count * 50;
           let amount = flag ? 1 : count * 1;
