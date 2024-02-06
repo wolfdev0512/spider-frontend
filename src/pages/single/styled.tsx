@@ -51,10 +51,11 @@ export const Image = styled.img`
   cursor: pointer;
   filter: invert(${({ theme }) => theme.image});
 
-  @media screen and (max-width: 768px){
-    width: 100px;
-    height: 100px;
+  @media screen and (max-width: 1024px){
+    width: 150px;
+    height: 150px;
   }
+
 `;
 export const Select = styled.select`
   outline: none;
