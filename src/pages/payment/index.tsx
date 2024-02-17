@@ -23,7 +23,7 @@ const CheckoutForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const { flag, company, address, name, email, link, size } = useSelector(
-    (state: any) => state.single
+    (state: any) => state.single,
   );
 
   const [currentUser, setCurrentUser] = useState<any>(false);
@@ -102,6 +102,9 @@ const CheckoutForm: React.FC = () => {
               amount: amount,
             });
 
+            console.log(response.data.success);
+            console.log(response.data.data);
+
             if (response.data.data.payment.status === "COMPLETED") {
               if (flag) {
                 const res = await axios.post(SERVER_URL + "/single", {
@@ -125,7 +128,7 @@ const CheckoutForm: React.FC = () => {
                       email: "",
                       link: "",
                       size: "",
-                    })
+                    }),
                   );
                   router("/singlereceipt");
                 } else {
@@ -161,9 +164,12 @@ const CheckoutForm: React.FC = () => {
         <Styled.ModalLayout>
           {loading ? (
             <Styled.Image src="assets/loading.webp" alt="No loading" />
-          ) :  (
+          ) : (
             <Styled.Single>
-              <Styled.Title> {flag ? "Order Completed" : "Active Completed"} </Styled.Title>
+              <Styled.Title>
+                {" "}
+                {flag ? "Order Completed" : "Active Completed"}{" "}
+              </Styled.Title>
               <Styled.Container>
                 <Styled.Row>
                   <Styled.Header>Email:</Styled.Header>
@@ -175,14 +181,21 @@ const CheckoutForm: React.FC = () => {
                 </Styled.Row>
                 <Styled.Row>
                   <Styled.Header>Amount:</Styled.Header>
-                  <Styled.Detail><span>100</span>USD</Styled.Detail>
+                  <Styled.Detail>
+                    <span>100</span>USD
+                  </Styled.Detail>
                 </Styled.Row>
                 <Styled.Row>
                   <Styled.Header>OrderID:</Styled.Header>
                   <Styled.Detail>YLBd742Kn3QimiVodPFqvCJCLVXZY</Styled.Detail>
                 </Styled.Row>
                 <Styled.Row>
-                  <Styled.Link href="https://discord.com/channels/@me/1199859109076414615" target="_blank">View Transaction</Styled.Link>
+                  <Styled.Link
+                    href="https://discord.com/channels/@me/1199859109076414615"
+                    target="_blank"
+                  >
+                    View Transaction
+                  </Styled.Link>
                 </Styled.Row>
               </Styled.Container>
             </Styled.Single>
@@ -212,7 +225,7 @@ export const Payment: React.FC = () => {
                 email: "",
                 link: "",
                 size: "",
-              })
+              }),
             );
             router(flag ? "/singlereceipt" : "/generator");
           }}

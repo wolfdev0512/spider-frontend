@@ -15,6 +15,7 @@ export const SignUp: React.FC = () => {
     password: "",
     rPassword: "",
   });
+  const [checkBox, setCheckBox] = useState(true);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,6 +32,7 @@ export const SignUp: React.FC = () => {
       const res = await axios.post(`${SERVER_URL}/auth/signup`, {
         email: form.email,
         password: form.password,
+        check: checkBox,
       });
       if (res.data.success) {
         toast.success(res.data.message);
@@ -70,6 +72,14 @@ export const SignUp: React.FC = () => {
             onChange={handleInputChange}
             prefix={<FaIcon.FaLock />}
           />
+          <input
+            type="checkbox"
+            checked={checkBox}
+            onChange={(e) => {
+              setCheckBox(e.target.checked);
+            }}
+          />
+          <span>Sign up for discounts and news.</span>
           <Comp.Button label="Sign Up" onClick={handleSignup} />
         </Styled.AuthFormWrapper>
         <Comp.AuthNavigate
