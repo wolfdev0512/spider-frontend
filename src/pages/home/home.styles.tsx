@@ -188,3 +188,48 @@ export const LinkItem = styled(Link)`
 export const AuthButtonBox = styled.div`
   display: flex;
 `;
+
+export const ModalLayout = styled.form`
+  width: 100%;
+  max-width: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img{
+    width: 100%;
+  }
+`;
+export const ModalContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalTitle = styled.div`
+  text-align: center;
+
+  font-size: 19px;
+  font-weight: 700;
+`;
+
+export const ModalInput = styled.input`
+  margin-top: 30px;
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 5px 8px;
+`;
+
+export const ModalButton = styled.input`
+  margin-top: 15px;
+  padding: 10px 25px;
+  background: #6548d9;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+`;

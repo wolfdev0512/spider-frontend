@@ -93,10 +93,8 @@ const CheckoutForm: React.FC = () => {
           </>
         )}
         <PaymentForm
-          // applicationId="sq0idp-cy8kSbhWO1avSBHRgeK0IA"
-          // locationId="LHBS7S12SPH5C"
-          applicationId="sandbox-sq0idb-nP6eTBYzaPexcBtq9o9l8Q"
-          locationId="LEWP2HC84SHQT"
+          applicationId="sq0idp-cy8kSbhWO1avSBHRgeK0IA"
+          locationId="LHBS7S12SPH5C"
           cardTokenizeResponseReceived={async (token, buyer) => {
             setOpenModal(true);
             setLoading(true);
@@ -195,7 +193,9 @@ const CheckoutForm: React.FC = () => {
               <Styled.Container>
                 <Styled.Row>
                   <Styled.Header>Email:</Styled.Header>
-                  <Styled.Detail>{email}</Styled.Detail>
+                  <Styled.Detail>
+                    {flag ? email : currentUser.email}
+                  </Styled.Detail>
                 </Styled.Row>
                 <Styled.Row>
                   <Styled.Header>Date:</Styled.Header>

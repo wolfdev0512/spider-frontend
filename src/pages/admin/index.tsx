@@ -14,12 +14,15 @@ export const Admin: React.FC = () => {
 
   const [userData, setUserData] = useState<any>([]);
   const [orderData, setOrderData] = useState<any>([]);
-  
+
   const [edit, setEdit] = useState(-1);
   const [editForm, setEditForm] = useState({ isActive: false, expireDate: "" });
 
   const [page1, setPage1] = React.useState(1);
   const [page2, setPage2] = React.useState(1);
+
+  const [search1, setSearch1] = useState("");
+  const [search2, setSearch2] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,7 +36,6 @@ export const Admin: React.FC = () => {
     }
     getData();
   }, []);
-
 
   const getData = async () => {
     const res = await axios.post(`${SERVER_URL}/admin/getAllUser`);
@@ -52,6 +54,15 @@ export const Admin: React.FC = () => {
     const day = String(date.getDate()).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+  };
+
+  const updateOrder = async (data: number) => {
+    const order = await axios.put(
+      `${SERVER_URL}/single/${orderData[data]._id}`
+    );
+    const updatedOrderData = [...orderData];
+    updatedOrderData[data] = order.data.data;
+    setOrderData(updatedOrderData);
   };
 
   const handleEditSave = async (userId: string) => {
@@ -98,6 +109,14 @@ export const Admin: React.FC = () => {
       <Styled.AdminWrapper>
         <h1>Users</h1>
 
+        <Styled.SearchBox>
+          <Styled.Label>Search:</Styled.Label>{" "}
+          <Styled.Input
+            value={search1}
+            onChange={(e) => setSearch1(e.target.value)}
+          />
+        </Styled.SearchBox>
+
         <Styled.AdminTableWrapper>
           <thead>
             <tr>
@@ -119,82 +138,87 @@ export const Admin: React.FC = () => {
             </tbody>
           ) : (
             <tbody>
-              {userData.slice((page1-1)*10, page1*10).map((row: any, index: number) => (
-                <tr key={index}>
-                  <td>{(page1-1) * 10 + index + 1}</td>
-                  <td>{row.email}</td>
-                  <td>
-                    {edit > -1 && edit === index ? (
-                      <label className="edit-activate" id="edit-activate">
+              {userData
+                .filter((item: any) =>
+                  item.email.toLowerCase().includes(search1)
+                )
+                .slice((page1 - 1) * 10, page1 * 10)
+                .map((row: any, index: number) => (
+                  <tr key={index}>
+                    <td>{(page1 - 1) * 10 + index + 1}</td>
+                    <td>{row.email}</td>
+                    <td>
+                      {edit > -1 && edit === index ? (
+                        <label className="edit-activate" id="edit-activate">
+                          <input
+                            type="checkbox"
+                            checked={editForm.isActive}
+                            onChange={(e) =>
+                              setEditForm((prev) => ({
+                                ...prev,
+                                isActive: e.target.checked,
+                              }))
+                            }
+                            name="activate"
+                            id="edit-activate"
+                          />
+                          <span>Activate</span>
+                        </label>
+                      ) : row.isActive ? (
+                        <span className="activated">Activated</span>
+                      ) : (
+                        <span className="not-activated">Not Activated</span>
+                      )}
+                    </td>
+                    <td>
+                      {edit > -1 && edit === index ? (
                         <input
-                          type="checkbox"
-                          checked={editForm.isActive}
+                          type="date"
+                          className="edit-date"
                           onChange={(e) =>
                             setEditForm((prev) => ({
                               ...prev,
-                              isActive: e.target.checked,
+                              expireDate: e.target.value,
                             }))
                           }
-                          name="activate"
-                          id="edit-activate"
+                          name="expireDate"
+                          value={formatDate(new Date(editForm.expireDate))}
                         />
-                        <span>Activate</span>
-                      </label>
-                    ) : row.isActive ? (
-                      <span className="activated">Activated</span>
-                    ) : (
-                      <span className="not-activated">Not Activated</span>
-                    )}
-                  </td>
-                  <td>
-                    {edit > -1 && edit === index ? (
-                      <input
-                        type="date"
-                        className="edit-date"
-                        onChange={(e) =>
-                          setEditForm((prev) => ({
-                            ...prev,
-                            expireDate: e.target.value,
-                          }))
-                        }
-                        name="expireDate"
-                        value={formatDate(new Date(editForm.expireDate))}
-                      />
-                    ) : (
-                      new Date(row.expireDate).toLocaleDateString()
-                    )}
-                  </td>
-                  <td>${row.deposit}</td>
-                  <td>
-                    {edit > -1 && edit === index ? (
-                      <div className="table-action">
-                        <span onClick={() => handleEditSave(row._id)}>
-                          Save
-                        </span>{" "}
-                        | <span onClick={() => setEdit(-1)}>Cancel</span>
-                      </div>
-                    ) : (
-                      <div className="table-action">
-                        <span
-                          onClick={() => {
-                            setEdit(index);
-                            setEditForm({
-                              isActive: row.isActive,
-                              expireDate: row.expireDate,
-                            });
-                          }}
-                        >
-                          Edit
-                        </span>{" "}
-                        |{" "}
-                        <span onClick={() => handleRemove(row._id)}>
-                          Remove
-                        </span>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                      ) : (
+                        new Date(row.expireDate).toLocaleDateString()
+                      )}
+                    </td>
+                    <td>${row.deposit}</td>
+                    <td>
+                      {edit > -1 && edit === index ? (
+                        <div className="table-action">
+                          <span onClick={() => handleEditSave(row._id)}>
+                            Save
+                          </span>{" "}
+                          | <span onClick={() => setEdit(-1)}>Cancel</span>
+                        </div>
+                      ) : (
+                        <div className="table-action">
+                          <span
+                            onClick={() => {
+                              setEdit(index);
+                              setEditForm({
+                                isActive: row.isActive,
+                                expireDate: row.expireDate,
+                              });
+                            }}
+                          >
+                            Edit
+                          </span>{" "}
+                          |{" "}
+                          <span onClick={() => handleRemove(row._id)}>
+                            Remove
+                          </span>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           )}
         </Styled.AdminTableWrapper>
@@ -206,7 +230,16 @@ export const Admin: React.FC = () => {
           pageSize={10}
           showSizeChanger={false}
         />
-        <h1 style={{marginTop: "20px"}}>Orders</h1>
+        <h1 style={{ marginTop: "20px" }}>Orders</h1>
+
+        <Styled.SearchBox>
+          <Styled.Label>Search:</Styled.Label>{" "}
+          <Styled.Input
+            value={search2}
+            onChange={(e) => setSearch2(e.target.value)}
+          />
+        </Styled.SearchBox>
+
         <Styled.AdminTableWrapper>
           <thead>
             <tr>
@@ -217,29 +250,48 @@ export const Admin: React.FC = () => {
               <th>Email</th>
               <th>Link</th>
               <th>Size</th>
+              <th>Done</th>
+              <th>Action</th>
             </tr>
           </thead>
           {orderData.length === 0 ? (
             <tbody>
               <tr>
-                <td colSpan={7} className="empty-row">
+                <td colSpan={9} className="empty-row">
                   No Data
                 </td>
               </tr>
             </tbody>
           ) : (
             <tbody>
-              {orderData.slice((page2-1)*10, page2*10-1).map((row: any, index: number) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{row.company}</td>
-                  <td>{row.address}</td>
-                  <td>{row.name}</td>
-                  <td>{row.email}</td>
-                  <td>{row.link}</td>
-                  <td>{row.size}</td>
-                </tr>
-              ))}
+              {orderData
+                .filter((item: any) =>
+                  item.email.toLowerCase().includes(search2)
+                )
+                .slice((page2 - 1) * 10, page2 * 10 - 1)
+                .map((row: any, index: number) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{row.company}</td>
+                    <td>{row.address}</td>
+                    <td>{row.name}</td>
+                    <td>{row.email}</td>
+                    <td>{row.link}</td>
+                    <td>{row.size}</td>
+                    <td>
+                      <Styled.Text>{row.active ? "Done" : ""}</Styled.Text>
+                    </td>
+                    <td>
+                      {!row.active && (
+                        <Styled.OrderButton
+                          onClick={() => updateOrder((page2 - 1) * 10 + index)}
+                        >
+                          Done
+                        </Styled.OrderButton>
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           )}
         </Styled.AdminTableWrapper>

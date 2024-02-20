@@ -80,3 +80,33 @@ export const AdminTableWrapper = styled.table`
     }
   }
 `;
+
+
+export const Text = styled.div`
+  color: red;
+`
+
+export const OrderButton = styled.div`
+  text-decoration: underline;
+  color: green;
+  cursor: pointer;
+
+`
+
+export const SearchBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`
+export const Label = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`
+export const Input = styled.input`
+  display: flex;
+  align-items: center;
+  width: 300px;
+
+  font-size: 16px;
+`
